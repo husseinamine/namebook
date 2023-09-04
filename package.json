@@ -1,7 +1,7 @@
 {
   "name": "namebook",
   "version": "0.1b",
-  "description": "secure e2e encrypted contacts database & more.",
+  "description": "secure e2e inventory management system.",
   "main": "./src/index.ts",
   "author": "husseinamine",
   "license": "MIT",
