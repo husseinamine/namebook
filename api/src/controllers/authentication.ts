@@ -1,6 +1,6 @@
 import express from "express";
 import { IUser, User, UserSchemaOptions } from "../models/user";
-import { send, processErrors } from "./common";
+import { send, processErrors, validatePassword } from "./common";
 
 const router = express.Router()
 
@@ -13,11 +13,13 @@ router.post("/register", async (req, res) => {
     if (userdata.username == null || userdata.password == null) {
         return send(res, {
             status: 400,
-            message: "username or password not specified."
+            message: ["username or password not specified."]
         }) 
     }
 
-    //TODO: CHECK PASSWORD
+    if (!validatePassword(res, userdata)) {
+        return
+    }
 
     try {
         await User.create(userdata)
@@ -27,7 +29,7 @@ router.post("/register", async (req, res) => {
 
     return send(res, {
         status: 201,
-        message: "successfully created account."
+        message: ["successfully created account."]
     }) 
 })
 

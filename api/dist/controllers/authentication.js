@@ -24,36 +24,21 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
     if (userdata.username == null || userdata.password == null) {
         return (0, common_1.send)(res, {
             status: 400,
-            message: "username or password not specified."
+            message: ["username or password not specified."]
         });
+    }
+    if (!(0, common_1.validatePassword)(res, userdata)) {
+        return;
     }
     try {
         yield user_1.User.create(userdata);
     }
     catch (e) {
         return (0, common_1.processErrors)(res, e, user_1.UserSchemaOptions);
-        // switch (-1) {
-        //     case e.message.indexOf("duplicate key error"):
-        //         return send(res, {
-        //             status: 400,
-        //             message: "user already exists."
-        //         }) 
-        //     case e.message.indexOf(errors.UsernameMinLengthError):
-        //         return send(res, {
-        //             status: 400,
-        //             message: errors.UsernameMinLengthError
-        //         }) 
-        //     default:
-        //         console.log(e)
-        //         return send(res, {
-        //             status: 500,
-        //             message: "unexpected server error."
-        //         }) 
-        // }
     }
     return (0, common_1.send)(res, {
         status: 201,
-        message: "successfully created account."
+        message: ["successfully created account."]
     });
 }));
 exports.default = { router };

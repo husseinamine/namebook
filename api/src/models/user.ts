@@ -6,15 +6,15 @@ interface IUser {
 }
 
 const constraints = {
-    USERNAME_MIN_LENGTH: 3,
-    USERNAME_MAX_LENGTH: 24,
+    UsernameMinLength: 3,
+    UsernameMaxLength: 24,
 }
 
 const errors = {
     UsernameRequiredError:  "username is required.",
     UsernameUniqueError:    "username already exists.",
-    UsernameMinLengthError: `username cannot be less than ${constraints.USERNAME_MIN_LENGTH} characters.`,
-    UsernameMaxLengthError: `username cannot be greater than ${constraints.USERNAME_MAX_LENGTH} characters.`,
+    UsernameMinLengthError: `username cannot be less than ${constraints.UsernameMinLength} characters.`,
+    UsernameMaxLengthError: `username cannot be greater than ${constraints.UsernameMaxLength} characters.`,
 
     PasswordRequiredError:  "password is required.",
 }
@@ -24,8 +24,8 @@ const UserSchemaOptions = {
         type: String,
         required:  [true, errors.UsernameRequiredError],
         unique:    [true, errors.UsernameUniqueError],
-        minLength: [constraints.USERNAME_MIN_LENGTH,  errors.UsernameMinLengthError],
-        maxLength: [constraints.USERNAME_MAX_LENGTH,  errors.UsernameMaxLengthError]
+        minLength: [constraints.UsernameMinLength,  errors.UsernameMinLengthError],
+        maxLength: [constraints.UsernameMaxLength,  errors.UsernameMaxLengthError]
     },
     password: {
         type: String,

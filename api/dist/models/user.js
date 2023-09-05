@@ -1,25 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errors = exports.UserSchemaOptions = exports.User = void 0;
+exports.UserSchemaOptions = exports.User = void 0;
 const mongoose_1 = require("mongoose");
+const constraints = {
+    UsernameMinLength: 3,
+    UsernameMaxLength: 24,
+};
 const errors = {
     UsernameRequiredError: "username is required.",
     UsernameUniqueError: "username already exists.",
-    UsernameMinLengthError: "username cannot be less than 3 characters.",
-    UsernameMaxLengthError: "username cannot be greater than 24 characters."
+    UsernameMinLengthError: `username cannot be less than ${constraints.UsernameMinLength} characters.`,
+    UsernameMaxLengthError: `username cannot be greater than ${constraints.UsernameMaxLength} characters.`,
+    PasswordRequiredError: "password is required.",
 };
-exports.errors = errors;
 const UserSchemaOptions = {
     username: {
         type: String,
         required: [true, errors.UsernameRequiredError],
         unique: [true, errors.UsernameUniqueError],
-        minLength: [3, errors.UsernameMinLengthError],
-        maxLength: [24, errors.UsernameMaxLengthError]
+        minLength: [constraints.UsernameMinLength, errors.UsernameMinLengthError],
+        maxLength: [constraints.UsernameMaxLength, errors.UsernameMaxLengthError]
     },
     password: {
         type: String,
-        required: true
+        required: [true, errors.PasswordRequiredError]
     },
 };
 exports.UserSchemaOptions = UserSchemaOptions;
