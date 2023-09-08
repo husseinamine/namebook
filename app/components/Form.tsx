@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         backgroundColor: '#427bad',
         margin: 5,
+        fontSize: 16,
     },
     disabledButton: {
         alignItems: 'center',

@@ -2,7 +2,7 @@ import { TouchableWithoutFeedback, View, Text, StyleSheet, Keyboard, TouchableOp
 import FlashMessage, {showMessage, hideMessage} from 'react-native-flash-message';
 
 import { useEffect, useState } from "react";
-import Form from '../helpers/Form';
+import Form from '../components/Form';
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

@@ -2,3 +2,6 @@
 
 # Namebook
 secure e2e inventory management system
+
+# TODO 
+- clean code
