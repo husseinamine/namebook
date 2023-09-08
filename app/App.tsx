@@ -89,30 +89,20 @@ export default function App() {
     <>
     <NavigationContainer>
       <Drawer.Navigator 
-        screenOptions={() => {
-          let screenOptions: any = {
-            swipeEnabled: drawer,
-            headerTintColor: 'white',
-                    
-            headerTitleStyle: {
-              color: "white",
-              fontFamily: "SourceSerifPro_900Black",
-              fontSize: 24
-            },
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: "#427bad"
-            }
-        }
-
-        if (!drawer) {
-          screenOptions = {
-            ...screenOptions,
-            headerLeft: () => null
+        screenOptions={{
+          headerShown:  drawer,
+          swipeEnabled: drawer,
+          headerTintColor: 'white',
+                  
+          headerTitleStyle: {
+            color: "white",
+            fontFamily: "SourceSerifPro_900Black",
+            fontSize: 24
+          },
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "#427bad"
           }
-        }
-
-        return screenOptions
       }}
 
         drawerContent={(props) => {
@@ -128,7 +118,7 @@ export default function App() {
                   let currentRoute = props.state.routeNames[props.state.index]
 
                   if (routeName === currentRoute || !drawer) return true
-                  return routeName !== 'Signup' && routeName !== 'Login';
+                  return routeName !== 'Auth';
                 }
               ),
               routes: props.state.routes.filter(
@@ -136,7 +126,7 @@ export default function App() {
                   let currentRoute = props.state.routeNames[props.state.index]
 
                   if (route.name === currentRoute || !drawer) return true
-                  return route.name !== 'Signup' && route.name !== 'Login';
+                  return route.name !== 'Auth';
                 }
               ),
             },
@@ -151,12 +141,34 @@ export default function App() {
         <Drawer.Screen name='Home'>
           {({ navigation, route }) => <Home {...{navigation, route, userToken, setUserToken, drawer, setDrawer}} />}
         </Drawer.Screen>
-        <Drawer.Screen name='Signup'>
-          {({ navigation, route }) => <Signup {...{navigation, route, userToken, setUserToken}} />}
+        <Drawer.Screen name='Auth'>
+          {(props) => {
+            return (
+              <Stack.Navigator {...props} screenOptions={{ 
+                headerShown: !drawer,
+                headerTintColor: 'white',
+                        
+                headerTitleStyle: {
+                  color: "white",
+                  fontFamily: "SourceSerifPro_900Black",
+                  fontSize: 24
+                },
+                headerTitleAlign: "center",
+                headerStyle: {
+                  backgroundColor: "#427bad"
+                }
+              }}>
+                <Stack.Screen name='Signup'>
+                  {({ navigation, route }) => <Signup {...{navigation, route, userToken, setUserToken}} />}
+                </Stack.Screen>
+                <Stack.Screen name='Login'>
+                  {({ navigation, route }) => <Login {...{navigation, route, userToken, setUserToken}} />}
+                </Stack.Screen>
+              </Stack.Navigator>
+            )
+          }}
         </Drawer.Screen>
-        <Drawer.Screen name='Login'>
-          {({ navigation, route }) => <Login {...{navigation, route, userToken, setUserToken}} />}
-        </Drawer.Screen>
+
       </Drawer.Navigator>
 
     </NavigationContainer>

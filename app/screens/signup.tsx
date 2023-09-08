@@ -28,7 +28,6 @@ function Signup({navigation, route, userToken, setUserToken}: any) {
                     disabled={register}
                     onPress={() =>{
                         setRegister(true)
-                        setUserToken(1)
                         
                         console.log({ username, password })
 

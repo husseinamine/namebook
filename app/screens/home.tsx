@@ -14,7 +14,7 @@ function Home({navigation, route, userToken, setUserToken, drawer, setDrawer}: a
 
         if (userToken === "0") {
             setDrawer(false)
-            navigation.jumpTo("Signup")
+            navigation.jumpTo("Auth")
         } else {
             setLoading(false)
             setDrawer(true)
