@@ -13,9 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_1 = require("../models/user");
 const common_1 = require("./common");
+const enviroment_1 = __importDefault(require("../enviroment"));
 const router = express_1.default.Router();
+const SECRET = enviroment_1.default.SECRET;
 router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userdata = {
         username: req.body.username,
@@ -30,15 +33,19 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
     if (!(0, common_1.validatePassword)(res, userdata)) {
         return;
     }
+    let createduser;
     try {
-        yield user_1.User.create(userdata);
+        createduser = yield user_1.User.create(userdata);
     }
     catch (e) {
         return (0, common_1.processErrors)(res, e, user_1.UserSchemaOptions);
     }
+    let token = jsonwebtoken_1.default.sign({
+        id: createduser._id
+    }, SECRET);
     return (0, common_1.send)(res, {
         status: 201,
-        message: ["successfully created account."]
+        message: ["successfully created account.", { token }]
     });
 }));
 exports.default = { router };

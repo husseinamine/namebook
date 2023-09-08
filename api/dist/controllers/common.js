@@ -16,24 +16,19 @@ function processErrors(res, e, schema) {
             let value = schema[field][key];
             if (key == "unique") {
                 if (e.message.indexOf("E11000") !== -1) {
-                    errors.push({
-                        status: 400,
-                        message: value[1]
-                    });
+                    errors.push(value[1]);
                 }
+                continue;
             }
             if (typeof value === "object" && value.length === 2) {
                 if (e.message.indexOf(value[1]) !== -1) {
-                    errors.push({
-                        status: 400,
-                        message: value[1]
-                    });
+                    errors.push(value[1]);
                 }
             }
         }
     }
     if (errors.length > 0) {
-        send(res, {
+        return send(res, {
             status: 400,
             message: errors
         });

@@ -1,6 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
-
+import _ from "./enviroment";
 import middleware from "./middleware";
 import authentication from "./controllers/authentication";
 
